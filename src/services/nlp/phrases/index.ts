@@ -1,13 +1,23 @@
 import { NlpManager } from "node-nlp";
 import { EN } from "../util/constants";
-import { bookingPrompt } from "./booking";
-import { helpPrompt } from "./help";
+import { availabilityId, availabilityPrompt } from "./availability";
+import { bookingId, bookingPrompt } from "./booking";
+import { logoutId, logoutPrompt } from "./logout";
+import { helpId, helpPrompt } from "./help";
+import { IPhraseDefinition } from "./types";
 
 const phraseManager = new NlpManager({ languages: [EN] });
 
 function loadPhrases(manager: NlpManager) {
-  bookingPrompt.phrases.forEach(phrase => {
-    manager.addDocument(EN, phrase, bookingPrompt.id);
+  loadFromDefinitions(manager, bookingPrompt);
+  loadFromDefinitions(manager, logoutPrompt);
+  loadFromDefinitions(manager, availabilityPrompt);
+  loadFromDefinitions(manager, helpPrompt);
+}
+
+function loadFromDefinitions(manager: NlpManager, prompt: IPhraseDefinition) {
+  prompt.phrases.forEach(phrase => {
+    manager.addDocument(EN, phrase, prompt.id);
   });
 
   helpPrompt.phrases.forEach(phrase => {
@@ -15,4 +25,11 @@ function loadPhrases(manager: NlpManager) {
   });
 }
 
-export { phraseManager, loadPhrases };
+export {
+  phraseManager,
+  loadPhrases,
+  bookingId,
+  helpId,
+  logoutId,
+  availabilityId
+};
