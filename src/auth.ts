@@ -1,8 +1,6 @@
-import dotenv from 'dotenv';
 import express, { Response, Request, Application } from 'express';
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import { create } from 'simple-oauth2';
 import { OIDCStrategy, IProfile, VerifyCallback } from 'passport-azure-ad';
 import session from 'express-session';
 import flash from 'connect-flash';
@@ -91,6 +89,7 @@ export const configure = (app: Application) => {
 
   const router = express.Router();
 
+
   router.use(session({
     secret: 'your_secret_value_here',
     resave: false,
@@ -132,7 +131,7 @@ export const configure = (app: Application) => {
       failureFlash: true
     }),
     (_req, res) => {
-      res.redirect('/auth/success');
+      res.redirect('/ui/success');
     }
   );
 
@@ -145,11 +144,8 @@ export const configure = (app: Application) => {
     }
   });
 
-  router.get('/success', (req: Request, res) => {
-    console.log('success');
-    res.set('Content-Type', 'text/html');
-    res.send('/success');
-  });
-
+  app.use('/ui', express.static(`${__dirname}/../public/`, {
+    extensions: ['html']
+  }));
   app.use('/auth', router);
 }
