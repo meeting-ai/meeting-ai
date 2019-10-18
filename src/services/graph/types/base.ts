@@ -31,11 +31,11 @@ export interface Address {
 export interface Coordinates {}
 
 export interface ILocation {
-  displayName: string;
+  displayName?: string;
   locationEmailAddress: string;
   locationType?: LocationType;
-  address: Address;
-  coordinates: Coordinates;
+  address?: Address;
+  coordinates?: Coordinates;
 }
 
 export interface IMeetingTimeSlot {
