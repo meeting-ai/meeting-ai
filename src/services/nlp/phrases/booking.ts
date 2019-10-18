@@ -13,7 +13,8 @@ const bookingPhrases: string[] = [
   `in %room% at %datetime%`,
   `in %room% around %datetime%`,
   `at %datetime% in %room%`,
-  `around %datetime% in %room%`
+  `around %datetime% in %room%`,
+  'in Smalls with #beeme1mr'
 ];
 
 export const bookingPrompt: IPhraseDefinition = {

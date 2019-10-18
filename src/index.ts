@@ -7,6 +7,7 @@ import { Application } from "express";
 import { config } from "./config";
 import routes from "./routes";
 import { configure as configureSlack } from "./slack";
+import { loadNlp } from "./services/nlp";
 
 async function start() {
   await loadMongo();
@@ -22,6 +23,7 @@ async function start() {
     });
 
     app.use(authMiddleware as Middleware<{}>);
+    await loadNlp();
 
     (expressReceiver.app as Application).use("/", routes);
     configureSlack(app);
