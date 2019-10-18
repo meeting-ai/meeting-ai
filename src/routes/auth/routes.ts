@@ -41,17 +41,14 @@ authRoutes.get('/signin/:uuid', async (req, res) => {
   };
 });
 
-authRoutes.post('/callback', (req, res) => {
-
-  passport.authenticate('azuread-openidconnect',
+authRoutes.post('/callback', passport.authenticate('azuread-openidconnect',
   {
     failureRedirect: '/auth/fail',
     failureFlash: true
-  })(req, res),
+  }),
   (_req, res) => {
     res.redirect('/success');
-  }
-});
+  });
 
 authRoutes.get('/signout', (req: Request, res) => {
   if (req.session) {
