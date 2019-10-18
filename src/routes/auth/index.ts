@@ -5,19 +5,11 @@ import { OIDCStrategy, IProfile, VerifyCallback } from 'passport-azure-ad';
 import session from 'express-session';
 import flash from 'connect-flash';
 import authRoutes from './routes';
+import { config } from '../../config';
+import { create } from 'simple-oauth2';
 
 // Configure simple-oauth2
-const oauth2 = require('simple-oauth2').create({
-  client: {
-    id: process.env.OAUTH_APP_ID as string,
-    secret: process.env.OAUTH_APP_PASSWORD as string,
-  },
-  auth: {
-    tokenHost: process.env.OAUTH_AUTHORITY as string,
-    authorizePath: process.env.OAUTH_AUTHORIZE_ENDPOINT,
-    tokenPath: process.env.OAUTH_TOKEN_ENDPOINT
-  }
-});
+const oauth2 = create(config.oauth);
 
 // Configure passport
 
@@ -69,22 +61,20 @@ async function signInComplete(_req: Request, _iss: string, _sub: string, profile
   return done(null, users[profile.oid]);
 }
 
-// Configure OIDC strategy
-passport.use(new OIDCStrategy(
-  {
-    identityMetadata: `${process.env.OAUTH_AUTHORITY}${process.env.OAUTH_ID_METADATA}`,
-    clientID: process.env.OAUTH_APP_ID as string,
-    responseType: 'code id_token',
-    responseMode: 'form_post',
-    redirectUrl: process.env.OAUTH_REDIRECT_URI as string,
-    allowHttpForRedirectUrl: true,
-    clientSecret: process.env.OAUTH_APP_PASSWORD,
-    validateIssuer: false,
-    passReqToCallback: true,
-    scope: JSON.parse(process.env.OAUTH_SCOPES as string,)
-  },
-  signInComplete
-));
+  // Configure OIDC strategy
+  passport.use(
+    new OIDCStrategy(
+      {
+        ...config.oidc,
+        responseType: "code id_token",
+        responseMode: "form_post",
+        allowHttpForRedirectUrl: true,
+        validateIssuer: false,
+        passReqToCallback: true
+      },
+      signInComplete
+    )
+  );
 
 const router = express.Router();
 
@@ -104,3 +94,5 @@ router.use(cookieParser());
 router.use(passport.initialize());
 router.use(passport.session());
 router.use('/', authRoutes);
+
+export default router;

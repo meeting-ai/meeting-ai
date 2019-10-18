@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', (_req: Request, res: Response) => {
   res.json({
-    uptime: process.uptime
+    uptime: process.uptime()
   });
 });
 
