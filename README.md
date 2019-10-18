@@ -7,7 +7,4 @@ MeetingAI is a slack app that helps you book outlook meetings for your organizat
 
 This is still a work in progress.
 
-Arnaud Crowther
-Mike Beemer
-Todd Baert
-Tom Carrio
+Arnaud Crowther, Mike Beemer, Todd Baert, Tom Carrio
