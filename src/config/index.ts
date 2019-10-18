@@ -29,6 +29,8 @@ export const config = {
     token: getEnv("SLACK_TOKEN")
   },
   express: {
+    protocol: getEnv("PROTOCOL", "https"),
+    host: getEnv("HOST", "localhost"),
     port: asNumber(getEnv("PORT", "3000"))
   }
 };
