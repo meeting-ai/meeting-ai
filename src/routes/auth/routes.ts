@@ -24,7 +24,7 @@ authRoutes.post('/callback', passport.authenticate('azuread-openidconnect',
     failureFlash: true
   }),
   (_req, res) => {
-    res.redirect('/ui/success');
+    res.redirect('/success');
   }
 );
 
