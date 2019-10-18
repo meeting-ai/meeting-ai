@@ -1,5 +1,6 @@
-import { App, Context, SlashCommand } from "@slack/bolt";
+import { App, Context, SlashCommand,  } from "@slack/bolt";
 import { IProcessed } from "../services/nlp/types";
+import { Option } from "@slack/types";
 
 interface BookMeeting {
   app: App;
@@ -8,10 +9,62 @@ interface BookMeeting {
   nlp: IProcessed;
 }
 
+const rooms: Option[] = [
+  {
+    "text": { "text": "Smalls", "type": "plain_text" },
+    "value": "Room_Smalls"
+  },
+  {
+    "text": { "text": "The Fox", "type": "plain_text" },
+    "value": "Room_Fox"
+  },
+  {
+    "text": { "text": "The Majestic", "type": "plain_text" },
+    "value": "Room_Majestic"
+  },
+  {
+    "text": { "text": "The Shelter", "type": "plain_text" },
+    "value": "Room_Shelter"
+  },
+  {
+    "text": { "text": "The Gem", "type": "plain_text" },
+    "value": "Room_Gem"
+  },
+  {
+    "text": { "text": "The Joe", "type": "plain_text" },
+    "value": "Room_Joe"
+  },
+  {
+    "text": { "text": "The Filmore", "type": "plain_text" },
+    "value": "Room_Filmore"
+  },
+  {
+    "text": { "text": "212 Room", "type": "plain_text" },
+    "value": "Room_212_Room"
+  },
+  {
+    "text": { "text": "Outer rink", "type": "plain_text" },
+    "value": "Room_Outer_Rink"
+  },
+  {
+    "text": { "text": "Roller rink", "type": "plain_text" },
+    "value": "Room_Roller_Rink"
+  }
+];
+
 export async function bookMeeting(options: BookMeeting): Promise<void> {
 
   const users = options.nlp.entities.filter(e => e.entity === "hashtag").map(e => e.sourceText.replace("#", ""));
 
+  const askedRoom = options.nlp.entities.filter(e => e.entity === "room");
+
+  let selectedRoom;
+  if (askedRoom.length > 0) {
+    selectedRoom = rooms.find(r => r.value === askedRoom[0].option );
+  } else {
+    selectedRoom = rooms[0];
+  }
+  
   const date = new Date();
 
   console.log(users)
@@ -93,6 +146,10 @@ export async function bookMeeting(options: BookMeeting): Promise<void> {
               "text": "Pick time",
               "emoji": true
             },
+            "initial_option": {
+              "text": { "text": "3:00pm", "type": "plain_text" },
+              "value": "15:00"
+            },
             "options": [
               {
                 "text": { "text": "1:00pm", "type": "plain_text" },
@@ -146,6 +203,10 @@ export async function bookMeeting(options: BookMeeting): Promise<void> {
               "text": "Pick duration",
               "emoji": true
             },
+            "initial_option": {
+              "text": { "type": "plain_text", "text": "30 minutes" },
+              "value": "30"
+            },
             "options": [
               {
                 "text": { "type": "plain_text", "text": "15 minutes" },
@@ -175,48 +236,8 @@ export async function bookMeeting(options: BookMeeting): Promise<void> {
               "text": "Pick location",
               "emoji": true
             },
-            "options": [
-              {
-                "text": { "text": "Smalls", "type": "plain_text" },
-                "value": "Room_Smalls"
-              },
-              {
-                "text": { "text": "The Fox", "type": "plain_text" },
-                "value": "Room_Fox"
-              },
-              {
-                "text": { "text": "The Majestic", "type": "plain_text" },
-                "value": "Room_Majestic"
-              },
-              {
-                "text": { "text": "The Shelter", "type": "plain_text" },
-                "value": "Room_Shelter"
-              },
-              {
-                "text": { "text": "The Gem", "type": "plain_text" },
-                "value": "Room_Gem"
-              },
-              {
-                "text": { "text": "The Joe", "type": "plain_text" },
-                "value": "Room_Joe"
-              },
-              {
-                "text": { "text": "The Filmore", "type": "plain_text" },
-                "value": "Room_Filmore"
-              },
-              {
-                "text": { "text": "212 Room", "type": "plain_text" },
-                "value": "Room_212_Room"
-              },
-              {
-                "text": { "text": "Outer rink", "type": "plain_text" },
-                "value": "Room_Outer_Rink"
-              },
-              {
-                "text": { "text": "Roller rink", "type": "plain_text" },
-                "value": "Room_Roller_Rink"
-              }
-            ]
+            "options": rooms,
+            "initial_option": selectedRoom,
           }
         },
         {

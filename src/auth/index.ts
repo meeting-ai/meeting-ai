@@ -35,7 +35,7 @@ export function authMiddleware({
   payload,
   context,
   say,
-  next
+  next,
 }: ISlackMiddlewareObject) {
   const slackUserId = payload.user_id;
 
@@ -64,7 +64,7 @@ export function authMiddleware({
 async function handleError(slackUserId: string, say: any) {
   const guid = await AccountLinkerService.create(slackUserId);
   say(
-    `I'm sorry <@${slackUserId}, you haven't linked your account yet! <${config.express.protocol}://${config.express.host}/auth/signin/${guid}|Link your account here>.`
+    `I'm sorry <@${slackUserId}>, you haven't linked your account yet! <${config.express.protocol}://${config.express.host}/auth/signin/${guid}|Link your account here>.`
   );
   return;
 }
