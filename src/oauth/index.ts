@@ -5,7 +5,7 @@ export class OAuthService {
     const entry = new OAuthModel({ slack, ...params });
     await entry.save();
   }
-  public static async load(slack: string) {
+  public static async load(slack: string): Promise<IOAuthParams | null> {
     const doc = await OAuthModel.findOne({ slack });
     if (!doc) {
       return null;
