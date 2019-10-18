@@ -1,13 +1,14 @@
 import "dotenv/config";
-import "./db";
 
 import { App, ExpressReceiver } from "@slack/bolt";
+import { loadMongo } from "./db";
 import { Application } from "express";
 import { config } from "./config";
 import routes from "./routes";
 import { configure as configureSlack } from "./slack";
 
 async function start() {
+  await loadMongo();
   try {
     const expressReceiver = new ExpressReceiver({
       signingSecret: config.slack.signingSecret || ""

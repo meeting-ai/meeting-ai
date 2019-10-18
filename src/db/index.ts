@@ -1,6 +1,11 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 import { config } from "../config";
 
-export const db = mongoose.connect(config.db);
+let db: Mongoose;
+const dbPromise = mongoose.connect(config.db);
+
+export const loadMongo = async () => {
+  db = await dbPromise;
+};
 
 export * from "./oauth";

@@ -29,7 +29,7 @@ export const config = {
     token: getEnv("SLACK_TOKEN")
   },
   express: {
-    port: asNumber(getEnv("PORT"))
+    port: asNumber(getEnv("PORT", "3000"))
   }
 };
 
