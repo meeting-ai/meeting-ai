@@ -2,7 +2,7 @@ import { NlpManager } from "node-nlp";
 import { manager } from "./manager";
 import { EN } from "./util/constants";
 import { IProcessed } from "./types";
-import { availabilityId, bookingId, logoutId } from "./phrases";
+import { availabilityId, bookingId, helpId, logoutId } from "./phrases";
 
 let nlpLoaded = false;
 
@@ -19,4 +19,4 @@ export async function process(phrase: string): Promise<IProcessed> {
   return await mgr.process(EN, phrase);
 }
 
-export const phraseIds = { availabilityId, bookingId, logoutId };
+export const phraseIds = { availabilityId, bookingId, helpId, logoutId };

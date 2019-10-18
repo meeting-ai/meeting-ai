@@ -114,19 +114,17 @@ export interface ISentiment {
 }
 
 export interface IProcessed {
-  response: {
-    utterance: string;
-    locale: Locale;
-    languageGuessed: false;
-    localeIso2: Locale;
-    language: Language;
-    domain: Domain;
-    classifications: IClassification[];
-    intent: string;
-    score: number;
-    entities: IEntity[];
-    sourceEntities: ISourceEntity[];
-    sentiment: ISentiment;
-    actions: unknown[];
-  };
+  utterance: string;
+  locale: Locale;
+  languageGuessed: false;
+  localeIso2: Locale;
+  language: Language;
+  domain: Domain;
+  classifications: IClassification[];
+  intent: string;
+  score: number;
+  entities: IEntity[];
+  sourceEntities: ISourceEntity[];
+  sentiment: ISentiment;
+  actions: unknown[];
 }

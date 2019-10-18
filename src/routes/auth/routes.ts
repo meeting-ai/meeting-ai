@@ -21,7 +21,7 @@ authRoutes.get('/signin/test', async (req, res) => {
 });
 
 /* GET auth callback. */
-authRoutes.get('/signin/:uuid', async (req, res) => {
+authRoutes.get('/signin/:uuid', async (req, res, next) => {
 
   const result = await AccountLinkerService.findByUUID(req.params.uuid).catch(() => null)
 
@@ -35,31 +35,34 @@ authRoutes.get('/signin/:uuid', async (req, res) => {
   {
     prompt: 'login',
     failureRedirect: '/auth/fail'
-  })(req, res),
+  })(req, res, next),
   (_req, res) => {
     res.redirect('/');
   };
 });
 
-authRoutes.post('/callback', (req, res) => {
-
-  passport.authenticate('azuread-openidconnect',
+authRoutes.post('/callback', passport.authenticate('azuread-openidconnect',
   {
     failureRedirect: '/auth/fail',
     failureFlash: true
-  })(req, res),
+  }),
   (_req, res) => {
     res.redirect('/success');
-  }
-});
+  });
 
-authRoutes.get('/signout', (req: Request, res) => {
+authRoutes.get('/signout', async (req: Request, res) => {
+  
   if (req.session) {
+    const slack = req.session!.slack;
     req.session.destroy((_err) => {
       req.logout();
-      res.redirect('/');
     });
+    if (slack) {
+      await AccountLinkerService.deleteAllByUser(slack).catch();
+    }   
   }
+
+  res.redirect('/');
 });
 
 export default authRoutes;
