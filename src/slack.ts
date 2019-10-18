@@ -1,12 +1,10 @@
 import { App } from "@slack/bolt";
 
 export const configure = (app: App) => {
-  app.command("/meet", async ({ command, ack, say, context, payload }) => {
-    console.log(JSON.stringify(payload, null, 2));
+  app.command("/meet", async ({ command, ack, respond }) => {
     // Acknowledge command request
-    ack({ text: "test" });
-    say({
-      channel: payload.channel_id,
+    ack();
+    respond({
       text: `you said: ${command.text}`,
     }) ;
   });
