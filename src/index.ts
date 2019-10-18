@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { App, ExpressReceiver } from "@slack/bolt";
 import { configure } from './auth';
+import { configure as configureSlack } from "./slack";
 
 async function start() {
   try {
@@ -16,6 +17,7 @@ async function start() {
     });
     
     configure(expressReceiver.app);
+    configureSlack(app);
 
     await app.start(process.env.PORT || 3000);
     console.log("⚡️ Bolt app is running!")
