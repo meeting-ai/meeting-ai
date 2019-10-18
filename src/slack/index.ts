@@ -7,6 +7,10 @@ export const configure = (app: App) => {
   app.command("/meet", async ({ command, context, payload, ack, respond }) => {
     ack();
 
+    if (context.oauth === undefined) {
+      return
+    } 
+
     const sanitizedText = command.text.replace(/<@([0-9A-Z]+)\|([0-9a-zA-Z_.]+)>/g, "#$1");
 
     const nlpResponse = await process(sanitizedText);
