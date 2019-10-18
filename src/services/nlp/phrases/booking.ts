@@ -1,13 +1,6 @@
-import {} from "../entities/rooms";
+import { IPhraseDefinition } from "./types";
 
-const bookingId = "booking.prompt";
-// const _oldPhrases: string[] = [
-//   "in smalls this afternoon",
-//   "in smalls at 2",
-//   "in smalls at 2 pm",
-//   "in the Majestic tomorrow morning",
-//   "in smalls"
-// ];
+export const bookingId = "booking.prompt";
 const bookingPhrases: string[] = [
   `in %room%`,
   `in %room% at %datetime%`,
@@ -20,8 +13,3 @@ export const bookingPrompt: IPhraseDefinition = {
   id: bookingId,
   phrases: bookingPhrases
 };
-
-export interface IPhraseDefinition {
-  id: string;
-  phrases: string[];
-}
