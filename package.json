@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "debug": "ts-node-dev --inspect -- src/index.ts"
   },
   "author": "",
@@ -18,9 +18,15 @@
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.17.1",
     "@types/express-session": "^1.15.15",
+    "@types/jest": "^24.0.19",
+    "@types/mongoose": "^5.5.21",
+    "@types/node": "^12.11.1",
     "@types/passport": "^1.0.1",
     "@types/passport-azure-ad": "^4.0.3",
+    "@types/request-promise": "^4.1.44",
     "@types/simple-oauth2": "^2.2.1",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
     "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.6.4"
   },
@@ -34,10 +40,37 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "flash": "^1.1.0",
+    "mongoose": "^5.7.5",
+    "node-nlp": "^3.10.0",
     "passport-azure-ad": "^4.1.0",
+    "request-promise": "^4.2.4",
     "simple-oauth2": "^2.4.0"
   },
   "engines": {
     "node": "10.x"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "setupFiles": [
+      "./test/jest.env.ts"
+    ],
+    "testRegex": "test/(.*)test.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "reporters": [
+      "default"
+    ]
   }
 }
