@@ -11,6 +11,11 @@ export function createAccessToken(params: any): AccessToken {
 }
 
 export function authMiddleware({ payload, context, say, next }) {
+  console.log(`payload: ${payload}`);
+  console.log(`context: ${context}`);
+  console.log(`say: ${say}`);
+  console.log(`next: ${next}`);
+
   const slackUserId = payload.user;
 
   // Assume we have a function that can take a Slack user ID as input to find user details from the provider
