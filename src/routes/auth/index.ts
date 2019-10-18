@@ -41,23 +41,28 @@ async function signInComplete(
   params: any,
   done: VerifyCallback
 ) {
-  if (!profile.oid) {
-    return done(new Error("No OID found in user profile."), null);
+  try {
+    if (!profile.oid) {
+      return done(new Error("No OID found in user profile."), null);
+    }
+  
+    const slack = _req.session!.slack;
+    if (!slack) {
+      return done(new Error('Slack not found in session'));
+    }
+  
+    // Create a simple-oauth2 token from raw tokens
+    let oauthToken = createAccessToken(params);
+  
+    await OAuthService.save(slack, params)
+  
+    // Save the profile and tokens in user storage
+    users[profile.oid] = { profile, oauthToken };
+    return done(null, users[profile.oid]);
+  } catch (err) {
+    console.error(`Error during signInComplete': ${err.stack}`);
+    return done(err);
   }
-
-  const slack = _req.session!.slack;
-  if (!slack) {
-    return done(new Error('Slack not found in session'));
-  }
-
-  // Create a simple-oauth2 token from raw tokens
-  let oauthToken = createAccessToken(params);
-
-  await OAuthService.save(slack, params)
-
-  // Save the profile and tokens in user storage
-  users[profile.oid] = { profile, oauthToken };
-  return done(null, users[profile.oid]);
 }
 
 // Configure OIDC strategy

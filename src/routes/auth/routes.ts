@@ -8,6 +8,18 @@ authRoutes.get('/fail', (_req: Request, res: Response) => {
   res.send('you failed.');
 });
 
+/* test signin */
+authRoutes.get('/signin/test', async (req, res) => {
+  passport.authenticate('azuread-openidconnect',
+  {
+    prompt: 'login',
+    failureRedirect: '/auth/fail'
+  })(req, res),
+  (_req, res) => {
+    res.redirect('/');
+  };
+});
+
 /* GET auth callback. */
 authRoutes.get('/signin/:uuid', async (req, res) => {
 
@@ -19,18 +31,6 @@ authRoutes.get('/signin/:uuid', async (req, res) => {
     req.session.slack = result.slack;
   }
 
-  passport.authenticate('azuread-openidconnect',
-  {
-    prompt: 'login',
-    failureRedirect: '/auth/fail'
-  })(req, res),
-  (_req, res) => {
-    res.redirect('/');
-  };
-});
-
-/* test signin */
-authRoutes.get('/signin/test', async (req, res) => {
   passport.authenticate('azuread-openidconnect',
   {
     prompt: 'login',
