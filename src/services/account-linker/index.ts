@@ -10,6 +10,7 @@ export class AccountLinkerService {
   }
 
   private static async save(slack: string, guid: string) {
+    console.log(`slack: ${slack.slice(5, 10)}\tguid: ${guid}`);
     const entry = new AccountLinkerModel({ slack, guid });
     await entry.save();
   }
