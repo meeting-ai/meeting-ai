@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
 import { config } from "../config";
 
-const db = mongoose.connect(config.db);
+export const db = mongoose.connect(config.db);
+
+export * from "./oauth";
