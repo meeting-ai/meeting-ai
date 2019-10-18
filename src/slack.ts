@@ -5,6 +5,7 @@ export const configure = (app: App) => {
     // Acknowledge command request
     ack();
     say({
+      channel: payload.channel_id,
       text: `you said: ${command.text}`,
     }) ;
   });
