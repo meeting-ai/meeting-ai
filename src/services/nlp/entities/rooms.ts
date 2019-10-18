@@ -14,7 +14,8 @@ import { EN } from "../util/constants";
 const roomId = "room";
 const roomDefinitions: IEntityDefinition[] = [
   {
-    id: "Room_Smalls",
+    id: "DTWSmalls@dynatrace.com",
+    name: "DTW Small's (5 seats) 5th Floor Ford Field",
     synonyms: [
       "Smalls",
       "the Smalls room",
@@ -25,7 +26,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Majestic",
+    id: "dtwthemajestic@dynatrace.com",
+    name: "DTW The Majestic (20 seats) 5th Floor Ford Field",
     synonyms: [
       "Majestic",
       "the Majestic",
@@ -36,7 +38,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Fox",
+    id: "dtwthefox5c-8@dynatrace.com",
+    name: "DTW The Fox  (8 seats) 5th Floor Comerica Side",
     synonyms: [
       "fox",
       "the fox",
@@ -47,7 +50,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Shelter",
+    id: "dtwshelter5F@dynatrace.com",
+    name: "DTW The Shelter  (8 seats) 5th Floor Ford Field Side",
     synonyms: [
       "Shelter",
       "the Shelter",
@@ -58,7 +62,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Joe",
+    id: "DTWTheJoe5c-12@dynatrace.com",
+    name: "DTW The Joe (12 seats) 5th Floor Comerica Side",
     synonyms: [
       "joe",
       "the joe",
@@ -69,7 +74,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Roller_Rink",
+    id: "DTWTheRollerRink@dynatrace.com",
+    name: "DTW The Roller Rink (7 seats) 5th floor Comerica Side",
     synonyms: [
       "Roller rink",
       "the Roller Rink",
@@ -80,7 +86,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Outer_Rink",
+    id: "DTWTheOuterRink@dynatrace.com",
+    name: "DTW The Outer Rink (16 seats) 5th floor Comerica Side",
     synonyms: [
       "Outer Rink",
       "the Outer Rink",
@@ -91,7 +98,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Gem",
+    id: "dtwthegem4C@dynatrace.com",
+    name: "DTW The Gem  (8 seats) 4th Floor Comerica Side",
     synonyms: [
       "Gem",
       "the Gem",
@@ -102,7 +110,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_212_Room",
+    id: "dtwthe212room@dynatrace.com",
+    name: "DTW The 212 Room  (20 seats) 5th Floor Ford Field Side",
     synonyms: [
       "212 Room",
       "the 212 Room",
@@ -116,7 +125,8 @@ const roomDefinitions: IEntityDefinition[] = [
     ]
   },
   {
-    id: "Room_Filmore",
+    id: "dtwthefilmore4F@dynatrace.com",
+    name: "DTW The Filmore  (8 seats) 4th Floor Ford Field Side",
     synonyms: [
       "Filmore",
       "the Filmore",
@@ -136,6 +146,7 @@ const rooms = roomDefinitions.map(defToEntity(roomId));
 
 interface IEntityDefinition {
   id: string;
+  name: string;
   synonyms: string[];
 }
 
