@@ -1,6 +1,7 @@
 import "dotenv/config";
 
-import { App, ExpressReceiver } from "@slack/bolt";
+import { App, ExpressReceiver, Middleware } from "@slack/bolt";
+import { authMiddleware } from "./auth";
 import { loadMongo } from "./db";
 import { Application } from "express";
 import { config } from "./config";
@@ -19,6 +20,8 @@ async function start() {
       token: config.slack.token,
       receiver: expressReceiver
     });
+
+    app.use(authMiddleware as Middleware<{}>);
 
     (expressReceiver.app as Application).use("/", routes);
     configureSlack(app);
