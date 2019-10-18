@@ -5,7 +5,7 @@ const metadata = getEnv("OAUTH_ID_METADATA");
 const identityMetadata = identity + metadata;
 
 export const config = {
-  db: getEnv("MONGO_URI", "mongodb://localhost/meeting-ai"),
+  db: getEnv("MONGODB_URI", "mongodb://localhost/meeting-ai"),
   oauth: {
     client: {
       id: getEnv("OAUTH_APP_ID"),

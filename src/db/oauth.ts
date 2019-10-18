@@ -15,6 +15,7 @@ const OAuthSchema: Schema = new Schema({
 const OAuthModel = model(OAUTH_COLLECTION, OAuthSchema);
 
 interface IOAuthParams {
+  slack: string;
   token_type: "Bearer";
   scope: string;
   expires_in: number;
