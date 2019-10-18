@@ -7,6 +7,7 @@ import flash from "connect-flash";
 import authRoutes from "./routes";
 import { config } from "../../config";
 import { createAccessToken } from "../../auth";
+import { OAuthService } from "../../services/oauth";
 
 // Configure passport
 
@@ -44,22 +45,15 @@ async function signInComplete(
     return done(new Error("No OID found in user profile."), null);
   }
 
-  // try{
-  //   const user = await graph.getUserDetails(accessToken);
-
-  //   if (user) {
-  //     // Add properties to profile
-  //     profile['email'] = user.mail ? user.mail : user.userPrincipalName;
-  //   }
-  // } catch (err) {
-  //   done(err, null);
-  // }
-
-  // remove the param b/c it bugs out in date-fns.
-  // delete params.expires_in;
+  const slack = _req.session!.slack;
+  if (!slack) {
+    return done(new Error('Slack not found in session'));
+  }
 
   // Create a simple-oauth2 token from raw tokens
   let oauthToken = createAccessToken(params);
+
+  await OAuthService.save(slack, params)
 
   // Save the profile and tokens in user storage
   users[profile.oid] = { profile, oauthToken };
