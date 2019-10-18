@@ -3,6 +3,7 @@ import { model, Schema } from "mongoose";
 const OAUTH_COLLECTION = "OAUTH";
 
 const OAuthSchema: Schema = new Schema({
+  slack: { type: String, required: true },
   token_type: { type: String, default: "Bearer", required: true },
   scope: { type: String, required: true },
   expires_in: { type: Number, required: true },
