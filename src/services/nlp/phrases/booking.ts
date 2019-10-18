@@ -1,19 +1,18 @@
-import {} from "../entities/rooms";
-
 const bookingId = "booking.prompt";
-// const _oldPhrases: string[] = [
-//   "in smalls this afternoon",
-//   "in smalls at 2",
-//   "in smalls at 2 pm",
-//   "in the Majestic tomorrow morning",
-//   "in smalls"
-// ];
+
 const bookingPhrases: string[] = [
   `in %room%`,
   `in %room% at %datetime%`,
   `in %room% around %datetime%`,
   `at %datetime% in %room%`,
-  `around %datetime% in %room%`
+  `around %datetime% in %room%`,
+  'in Smalls with #beeme1mr',
+  'with #beemer and #arnaud in Smalls',
+  'in smalls with #beemer and #arnaud',
+  'with #beemer and #arnaud',
+  'with #beemer and #arnaud in Smalls',
+  'in smalls with #beemer and #arnaud',
+  'with #beemer and #arnaud',
 ];
 
 export const bookingPrompt: IPhraseDefinition = {
