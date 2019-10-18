@@ -19,10 +19,6 @@ function loadFromDefinitions(manager: NlpManager, prompt: IPhraseDefinition) {
   prompt.phrases.forEach(phrase => {
     manager.addDocument(EN, phrase, prompt.id);
   });
-
-  helpPrompt.phrases.forEach(phrase => {
-    manager.addDocument(EN, phrase, helpPrompt.id);
-  });
 }
 
 export {
