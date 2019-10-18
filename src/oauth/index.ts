@@ -6,6 +6,13 @@ export class OAuthService {
     await entry.save();
   }
   public static async load(slack: string) {
-    return OAuthModel.findOne({ slack });
+    const doc = await OAuthModel.findOne({ slack });
+    if (!doc) {
+      return null;
+    }
+
+    const oauth = doc.toObject();
+    delete oauth.slack;
+    return oauth;
   }
 }
