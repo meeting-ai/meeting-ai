@@ -12,43 +12,43 @@ interface BookMeeting {
 const rooms: Option[] = [
   {
     "text": { "text": "Smalls", "type": "plain_text" },
-    "value": "Room_Smalls"
+    "value": "DTWSmalls@dynatrace.com"
   },
   {
     "text": { "text": "The Fox", "type": "plain_text" },
-    "value": "Room_Fox"
+    "value": "dtwthefox5c-8@dynatrace.com"
   },
   {
     "text": { "text": "The Majestic", "type": "plain_text" },
-    "value": "Room_Majestic"
+    "value": "dtwthemajestic@dynatrace.com"
   },
   {
     "text": { "text": "The Shelter", "type": "plain_text" },
-    "value": "Room_Shelter"
+    "value": "dtwshelter5F@dynatrace.com"
   },
   {
     "text": { "text": "The Gem", "type": "plain_text" },
-    "value": "Room_Gem"
+    "value": "dtwthegem4C@dynatrace.com"
   },
   {
     "text": { "text": "The Joe", "type": "plain_text" },
-    "value": "Room_Joe"
+    "value": "DTWTheJoe5c-12@dynatrace.com"
   },
   {
     "text": { "text": "The Filmore", "type": "plain_text" },
-    "value": "Room_Filmore"
+    "value": "dtwthefilmore4F@dynatrace.com"
   },
   {
     "text": { "text": "212 Room", "type": "plain_text" },
-    "value": "Room_212_Room"
+    "value": "dtwthe212room@dynatrace.com"
   },
   {
     "text": { "text": "Outer rink", "type": "plain_text" },
-    "value": "Room_Outer_Rink"
+    "value": "DTWTheOuterRink@dynatrace.com"
   },
   {
     "text": { "text": "Roller rink", "type": "plain_text" },
-    "value": "Room_Roller_Rink"
+    "value": "DTWTheRollerRink@dynatrace.com"
   }
 ];
 
@@ -58,6 +58,7 @@ export async function bookMeeting(options: BookMeeting): Promise<void> {
 
   const askedRoom = options.nlp.entities.filter(e => e.entity === "room");
 
+  console.log(JSON.stringify(options.nlp, null, 2));
   let selectedRoom;
   if (askedRoom.length > 0) {
     selectedRoom = rooms.find(r => r.value === askedRoom[0].option );
