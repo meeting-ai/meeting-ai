@@ -82,4 +82,27 @@ export class GraphHttpService {
 
     return response;
   }
+
+  public async availability(
+    user: IUser,
+    location: string
+  ) {
+    const res = await this.findMeeting(user, 
+      {
+        locations: [
+          { locationEmailAddress: location}
+        ], timeSlots: [
+      {
+        start: {
+          timeZone: "Eastern Standard Time",
+          dateTime: new Date().toISOString(),
+        },
+        end: {
+          timeZone: "Eastern Standard Time",
+          dateTime: new Date().toISOString(),
+        },
+      }
+    ] });
+    return res.meetingTimeSuggestions.length > 0;
+  }
 }
