@@ -1,4 +1,4 @@
-import { OAuthModel, IOAuthParams } from "../db";
+import { OAuthModel, IOAuthParams } from "../../db";
 
 export class OAuthService {
   public static async save(slack: string, params: IOAuthParams) {

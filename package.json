@@ -25,6 +25,7 @@
     "@types/passport-azure-ad": "^4.0.3",
     "@types/request-promise": "^4.1.44",
     "@types/simple-oauth2": "^2.2.1",
+    "@types/uuid": "^3.4.5",
     "jest": "^24.9.0",
     "ts-jest": "^24.1.0",
     "ts-node-dev": "^1.0.0-pre.43",
@@ -44,7 +45,8 @@
     "node-nlp": "^3.10.0",
     "passport-azure-ad": "^4.1.0",
     "request-promise": "^4.2.4",
-    "simple-oauth2": "^2.4.0"
+    "simple-oauth2": "^2.4.0",
+    "uuid": "^3.3.3"
   },
   "engines": {
     "node": "10.x"

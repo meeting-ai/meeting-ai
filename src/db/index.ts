@@ -8,4 +8,5 @@ export const loadMongo = async () => {
   db = await dbPromise;
 };
 
+export * from "./account-linker";
 export * from "./oauth";
