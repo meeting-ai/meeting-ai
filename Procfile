@@ -1,1 +1,1 @@
-web: node dist/index.js -p $PORT
+web: npm start
