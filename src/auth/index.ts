@@ -10,11 +10,38 @@ export function createAccessToken(params: any): AccessToken {
   return oauth2.accessToken.create(params);
 }
 
-export function authMiddleware({ payload, context, say, next }) {
-  console.log(`payload: ${JSON.stringify(payload)}`);
-  console.log(`typeof: ${typeof payload}`);
+interface ISlackPayload {
+  token: string; // "Xyz0Xyz0Xyz0Xyz0Xyz0Xyz0";
+  team_id: string; // "0Xyz0Xyz0";
+  team_domain: string; // "dynatrace";
+  channel_id: string; // "XYZ0XYZ04";
+  channel_name: string; // "privategroup";
+  user_id: string; // "UJQ66XYZ0";
+  user_name: string; // "thomas.carrio";
+  command: string; // "/meet";
+  text: string; // "yooooo";
+  response_url: string; // "https://hooks.slack.com/commands/TXYZ0XYZ0/123706000000/Xyz0rXyz0eSXXyz0Xyz0Xyz0";
+  trigger_id: string; // "800385090084.241366759330.0123456789abcb8cd4011b320972f";
+}
 
-  const slackUserId = payload.user;
+interface ISlackMiddlewareObject {
+  payload: ISlackPayload;
+  context: any;
+  say: any;
+  next: any;
+}
+
+export function authMiddleware({
+  payload,
+  context,
+  say,
+  next
+}: ISlackMiddlewareObject) {
+  const slackUserId = payload.user_id;
+
+  if (!slackUserId) {
+    return handleError("UNDEFINED", say);
+  }
 
   // Assume we have a function that can take a Slack user ID as input to find user details from the provider
   OAuthService.load(slackUserId)
