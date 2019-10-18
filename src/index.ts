@@ -1,27 +1,29 @@
 import "dotenv/config";
+import "./db";
 
 import { App, ExpressReceiver } from "@slack/bolt";
-import { configure as configureSlack } from "./slack";
 import { Application } from "express";
-import routes from './routes';
+import { config } from "./config";
+import routes from "./routes";
+import { configure as configureSlack } from "./slack";
 
 async function start() {
   try {
     const expressReceiver = new ExpressReceiver({
-      signingSecret: process.env.SLACK_SIGNING_SECRET || "",
+      signingSecret: config.slack.signingSecret || ""
     });
-    
+
     const app = new App({
-      signingSecret: process.env.SLACK_SIGNING_SECRET,
-      token: process.env.SLACK_TOKEN,
+      signingSecret: config.slack.signingSecret,
+      token: config.slack.token,
       receiver: expressReceiver
     });
-    
-    (expressReceiver.app as Application).use('/', routes);
+
+    (expressReceiver.app as Application).use("/", routes);
     configureSlack(app);
 
-    await app.start(process.env.PORT || 3000);
-    console.log("⚡️ Bolt app is running!")
+    await app.start(config.express.port);
+    console.log("⚡️ Bolt app is running!");
   } catch (err) {
     console.error(err);
     return process.exit(1);

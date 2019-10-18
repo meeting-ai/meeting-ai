@@ -23,6 +23,13 @@ export const config = {
     redirectUrl: getEnv("OAUTH_REDIRECT_URI"),
     clientSecret: getEnv("OAUTH_APP_PASSWORD"),
     scope: JSON.parse(getEnv("OAUTH_SCOPES"))
+  },
+  slack: {
+    signingSecret: getEnv("SLACK_SIGNING_SECRET"),
+    token: getEnv("SLACK_TOKEN")
+  },
+  express: {
+    port: asNumber(getEnv("PORT"))
   }
 };
 
@@ -36,4 +43,8 @@ export function getEnv(name: string, fallback?: string): string {
   }
 
   throw new ConfigError(name);
+}
+
+export function asNumber(input: string): number {
+  return Number.parseInt(input);
 }
