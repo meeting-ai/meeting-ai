@@ -7,7 +7,7 @@ export const configure = (app: App) => {
   app.command("/meet", async ({ command, context, payload, ack, respond }) => {
     ack();
 
-    if (context.oauth === undefined) {
+    if (context.text.trim() === "login") {
       return
     } 
 
