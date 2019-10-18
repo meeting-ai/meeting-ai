@@ -1,8 +1,9 @@
 import "dotenv/config";
 
 import { App, ExpressReceiver } from "@slack/bolt";
-import { configure } from './auth';
 import { configure as configureSlack } from "./slack";
+import { Application } from "express";
+import routes from './routes';
 
 async function start() {
   try {
@@ -16,7 +17,7 @@ async function start() {
       receiver: expressReceiver
     });
     
-    configure(expressReceiver.app);
+    (expressReceiver.app as Application).use('/', routes);
     configureSlack(app);
 
     await app.start(process.env.PORT || 3000);
