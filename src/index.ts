@@ -10,8 +10,8 @@ import { configure as configureSlack } from "./slack";
 import { loadNlp } from "./services/nlp";
 
 async function start() {
-  await loadMongo();
   try {
+    await loadMongo();
     const expressReceiver = new ExpressReceiver({
       signingSecret: config.slack.signingSecret || ""
     });
